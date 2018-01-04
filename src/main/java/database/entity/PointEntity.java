@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "point")
-public class Point {
+public class PointEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -15,19 +15,19 @@ public class Point {
     private boolean inBatman;
     @Column(name = "curr_time", columnDefinition="TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date currTime;
+    private Date currentTime;
     private long processTime;
 
-    public Point(double x, double y, double zoom, boolean inBatman, Date currTime, long processTime) {
+    public PointEntity(double x, double y, double zoom, boolean inBatman, Date currentTime, long processTime) {
         this.x = x;
         this.y = y;
         this.zoom = zoom;
         this.inBatman = inBatman;
-        this.currTime = currTime;
+        this.currentTime = currentTime;
         this.processTime = processTime;
     }
 
-    public Point() {
+    public PointEntity() {
     }
 
     public void setX(double x) {
@@ -46,8 +46,8 @@ public class Point {
         this.inBatman = inBatman;
     }
 
-    public void setCurrTime(Date currTime) {
-        this.currTime = currTime;
+    public void setCurrentTime(Date currentTime) {
+        this.currentTime = currentTime;
     }
 
     public void setProcessTime(long processTime) {
@@ -70,8 +70,8 @@ public class Point {
         return inBatman;
     }
 
-    public Date getCurrTime() {
-        return currTime;
+    public Date getCurrentTime() {
+        return currentTime;
     }
 
     public long getProcessTime() {
@@ -81,14 +81,14 @@ public class Point {
 
     @Override
     public String toString() {
-        return "Point(" +
+        return "PointEntity(" +
                 "id = " + id +
                 "  x = " + x +
                 "  y = " + y +
                 "  zoom = " + zoom +
                 "  Strike = " + inBatman +
-                "  Time = " + currTime +
-                "  ProgramLiveTime = " + currTime +
+                "  Time = " + currentTime +
+                "  ProgramLiveTime = " + currentTime +
                 ");";
     }
 }

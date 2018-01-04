@@ -2,13 +2,13 @@ package batman;
 
 import database.repository.PointRepository;
 
-public class Greeting {
+public class Batman {
 
     private final long id;
     private final String content;
     private final Boolean inBatman;
 
-    Greeting(long id, String content, PointRepository pointRepository) {
+    Batman(long id, String content, PointRepository pointRepository) {
         this.id = id;
         this.content = content;
         this.inBatman = pointRepository.findOne(1L).isInBatman();
