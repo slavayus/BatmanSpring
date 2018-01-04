@@ -1,29 +1,17 @@
-package database.entity;
+package batman;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "users")
-public class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @Column(unique=true)
+public class UserParams {
     private String login;
     private String passwordHash;
     private String hashCode;
 
-    public UserEntity(String login, String passwordHash, String hashCode) {
+    public UserParams() {
+    }
+
+    public UserParams(String login, String passwordHash, String hashCode) {
         this.login = login;
         this.passwordHash = passwordHash;
         this.hashCode = hashCode;
-    }
-
-    public UserEntity() {
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void setLogin(String login) {
@@ -36,10 +24,6 @@ public class UserEntity {
 
     public void setHashCode(String hashCode) {
         this.hashCode = hashCode;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getLogin() {
