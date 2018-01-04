@@ -72,7 +72,11 @@ public class BatmanController {
             this.checkBatman.setGetX(batmanParams.getX());
             this.checkBatman.setGetY(batmanParams.getY());
             this.checkBatman.setGetZoom(batmanParams.getZoom());
+
             PointEntity pointEntity = this.checkBatman.updatePoint();
+            UserEntity byId = userRepository.findById(userSession.getId());
+            pointEntity.setUserEntity(byId);
+
             pointRepository.save(pointEntity);
             return pointEntity;
         }

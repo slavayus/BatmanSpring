@@ -13,10 +13,12 @@ public class PointEntity {
     private double y;
     private double zoom;
     private boolean inBatman;
-    @Column(name = "curr_time", columnDefinition="TIMESTAMP")
+    @Column(name = "curr_time", columnDefinition = "TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date currentTime;
     private long processTime;
+    @ManyToOne
+    private UserEntity userEntity;
 
     public PointEntity(double x, double y, double zoom, boolean inBatman, Date currentTime, long processTime) {
         this.x = x;
@@ -54,6 +56,10 @@ public class PointEntity {
         this.processTime = processTime;
     }
 
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
+
     public double getX() {
         return x;
     }
@@ -78,6 +84,9 @@ public class PointEntity {
         return processTime;
     }
 
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
 
     @Override
     public String toString() {
