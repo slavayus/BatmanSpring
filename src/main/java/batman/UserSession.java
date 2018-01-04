@@ -20,7 +20,7 @@ class UserSession {
         this.login = login;
     }
 
-    Long getId() {
+    public Long getId() {
         return id;
     }
 

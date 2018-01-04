@@ -26,15 +26,15 @@ public class UserParams {
         this.hashCode = hashCode;
     }
 
-    public String getLogin() {
+    String getLogin() {
         return login;
     }
 
-    public String getPasswordHash() {
+    String getPasswordHash() {
         return passwordHash;
     }
 
-    public String getHashCode() {
+    String getHashCode() {
         return hashCode;
     }
 }

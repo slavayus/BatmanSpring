@@ -36,17 +36,33 @@ public class BatmanController {
     private ModelAndView modelAndView;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public Long checkUser(HttpSession httpSession, @RequestBody UserParams userParams) {
+    public UserSession registerUser(HttpSession httpSession, @RequestBody UserParams userParams) {
         UserEntity userEntity = new UserEntity(userParams.getLogin(), userParams.getPasswordHash(), userParams.getHashCode());
-        if ((userParams.getHashCode() != null) || (userParams.getLogin() != null) || (userParams.getPasswordHash() != null) || (userRepository.findByLogin(userEntity.getLogin()) == null)) {
+        if ((userParams.getHashCode() != null) && (userParams.getLogin() != null) && (userParams.getPasswordHash() != null) && (userRepository.findByLogin(userEntity.getLogin()) == null)) {
             userRepository.save(userEntity);
 
-            modelAndView.addObject(new UserSession(userEntity.getId(), userEntity.getLogin()));
+            UserSession userSession = new UserSession(userEntity.getId(), userEntity.getLogin());
+            modelAndView.addObject(userSession);
 
-            return userEntity.getId();
+            return userSession;
         } else {
-            return -1L;
+            return null;
         }
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public UserSession checkUser(HttpSession httpSession, @RequestBody UserParams userParams) {
+        UserEntity userEntity = new UserEntity(userParams.getLogin(), userParams.getPasswordHash(), userParams.getHashCode());
+        if (userEntity.getLogin() != null) {
+            UserEntity byLogin = userRepository.findByLogin(userEntity.getLogin());
+
+            if ((byLogin != null) && (byLogin.getPasswordHash().equals(userEntity.getPasswordHash()))) {
+                UserSession userSession = new UserSession(byLogin.getId(), byLogin.getLogin());
+                modelAndView.addObject(userSession);
+                return userSession;
+            }
+        }
+        return null;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/user/check")
@@ -64,7 +80,8 @@ public class BatmanController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/user/results-by-zoom")
-    public List<PointEntity> getResultsByZoom(@RequestParam(value = "zoom", required = false, defaultValue = "0") Double zoom) {
+    public List<PointEntity> getResultsByZoom
+            (@RequestParam(value = "zoom", required = false, defaultValue = "0") Double zoom) {
         return pointRepository.findByZoom(zoom);
     }
 
