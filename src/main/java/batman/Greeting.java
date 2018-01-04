@@ -1,4 +1,4 @@
-package hello;
+package batman;
 
 import database.repository.PointRepository;
 
